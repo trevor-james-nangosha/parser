@@ -36,7 +36,7 @@ class Tokeniser {
             }
         }
 
-        //String tokens
+    //String tokens
         if (string[0] === `"`) {
             let s = ""
             do {

@@ -1,5 +1,8 @@
 const { Tokeniser } = require('./Tokeniser')
 
+/**
+ * responsible for generating a stream of tokens from the string.
+ */
 class Parser {
     //initialises the parser
     constructor() {
@@ -7,11 +10,15 @@ class Parser {
         this._tokeniser = new Tokeniser()
     }
 
-    //this is the main API of the class it parses a string into an AST
+    /**
+     * this is the main API of the class it parses a string into an AST
+     * @param {*} string 
+     * @returns 
+     */
     parse(string) {
         this._string = string
         this._tokeniser.init(string)
-        
+
         // the lookahead is used for predictive parsing
         this._lookahead = this._tokeniser.getNextToken()
 

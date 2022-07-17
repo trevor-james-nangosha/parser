@@ -37,29 +37,24 @@ class Tokeniser {
         }
 
         const string = this._string.slice(this._cursor)
-        if (!Number.isNaN(Number(string[0]))) {
-            let number = ''
-            while (!Number.isNaN(Number(string[this._cursor]))) {
-                number += string[this._cursor++]
-            }
-
+        let matched = /^\d+/.exec(string)
+        if (matched !== null) {
+            this._cursor += matched[0].length
             return {
                 type: 'NUMBER',
-                value: number,
+                value: matched[0],
             }
         }
 
-    //String tokens
-        if (string[0] === '"') {
-            let s = ''
-            do {
-                s += string[this._cursor++]
-            } while (string[this._cursor] !== '"' && !this.isEOF())
-            s += this._cursor++ //skip
-                return {
-                    type: 'STRING',
-                    value: s
-                }
+
+        //String tokens
+        matched = /"[^"]*"/.exec(string);
+        if (matched !== null) {
+            this._cursor += matched[0].length
+            return {
+                type: 'STRING',
+                value: matched[0]
+            }
         }
 
         return null
